@@ -1,0 +1,209 @@
+:root { --maroon: #800000; --gold: #d4a017; --cream: #fdf8f0; }
+
+* { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background-color: var(--cream); color: #2a1a1a; }
+
+/* ── Gold shimmer ── */
+.text-gold-shimmer {
+  background: linear-gradient(90deg, #d4a017 0%, #f5d87a 40%, #b8860b 70%, #d4a017 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer { to { background-position: 200% center; } }
+
+/* ── Ornament divider ── */
+.ornament { display: flex; align-items: center; gap: 12px; justify-content: center; }
+.ornament::before, .ornament::after {
+  content: ''; flex: 1; max-width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, #d4a017);
+}
+.ornament::after { background: linear-gradient(90deg, #d4a017, transparent); }
+
+/* ── Hero overlay ── */
+.hero-overlay {
+  background: linear-gradient(135deg, rgba(128,0,0,0.92) 0%, rgba(100,0,0,0.80) 50%, rgba(60,0,0,0.70) 100%);
+}
+
+/* ── Product card hover ── */
+.product-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(128,0,0,0.18); }
+
+/* ── Navbar fixed (always solid — no JS scroll effect) ── */
+#navbar { background: rgba(128, 0, 0, 0.97); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+
+/* ── Testimonial card ── */
+.testi-card { background: linear-gradient(135deg, #fff9f0, #fff3e0); border: 1px solid rgba(212,160,23,0.3); }
+
+/* ── Section title underline ── */
+.section-title::after {
+  content: ''; display: block; width: 60px; height: 3px;
+  background: linear-gradient(90deg, #800000, #d4a017);
+  margin: 12px auto 0; border-radius: 2px;
+}
+
+/* ── Input focus gold ring ── */
+.input-gold:focus { outline: none; border-color: #d4a017; box-shadow: 0 0 0 3px rgba(212,160,23,0.2); }
+
+/* ── Stars ── */
+.stars { color: #d4a017; }
+
+/* ── WhatsApp float bounce ── */
+.whatsapp-float { animation: bounce-slow 3s ease-in-out infinite; }
+@keyframes bounce-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* ── Mobile menu: pure CSS toggle via checkbox ── */
+#menu-toggle { display: none; }
+#mobile-menu {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+#menu-toggle:checked ~ #mobile-menu { max-height: 500px; opacity: 1; }
+
+/* Hamburger icon swap */
+.hamburger-label .icon-open  { display: block; }
+.hamburger-label .icon-close { display: none; }
+#menu-toggle:checked ~ * .icon-open  { display: none; }
+#menu-toggle:checked ~ * .icon-close { display: block; }
+
+/* ── CSS Filter Tabs ── */
+/* Hidden radio inputs control product visibility */
+#filter-semua, #filter-kue-kering, #filter-kue-basah, #filter-cake, #filter-roti { display: none; }
+
+/* All products visible by default (semua checked) */
+.product-item { display: block; }
+
+/* When a specific category is selected, hide all then show matching */
+#filter-kue-kering:checked ~ .product-grid .product-item { display: none; }
+#filter-kue-kering:checked ~ .product-grid .cat-kue-kering { display: block; }
+
+#filter-kue-basah:checked ~ .product-grid .product-item { display: none; }
+#filter-kue-basah:checked ~ .product-grid .cat-kue-basah { display: block; }
+
+#filter-cake:checked ~ .product-grid .product-item { display: none; }
+#filter-cake:checked ~ .product-grid .cat-cake { display: block; }
+
+#filter-roti:checked ~ .product-grid .product-item { display: none; }
+#filter-roti:checked ~ .product-grid .cat-roti { display: block; }
+
+/* Tab button active state via sibling selector */
+.tab-label {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  border: 1px solid rgba(128,0,0,0.2);
+  color: #800000;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.tab-label:hover { background: #800000; color: white; }
+
+#filter-semua:checked   ~ .filter-bar label[for="filter-semua"],
+#filter-kue-kering:checked ~ .filter-bar label[for="filter-kue-kering"],
+#filter-kue-basah:checked  ~ .filter-bar label[for="filter-kue-basah"],
+#filter-cake:checked    ~ .filter-bar label[for="filter-cake"],
+#filter-roti:checked    ~ .filter-bar label[for="filter-roti"] {
+  background: #800000;
+  color: white;
+}
+
+/* ── Login Modal via :target ── */
+.modal-wrap { display: none; }
+.modal-wrap:target { display: flex; }
+
+/* ── Modal tab switching via :target ── */
+#tab-login-pane  { display: block; }
+#tab-register-pane { display: none; }
+#login-modal:target #tab-login-pane { display: block; }
+#login-modal:target #tab-register-pane { display: none; }
+#register-modal:target #tab-login-pane { display: none; }
+#register-modal:target #tab-register-pane { display: block; }
+
+/* tab button active look */
+.modal-tab-login  { color: #800000; border-bottom: 2px solid #800000; }
+.modal-tab-register { color: #9ca3af; border-bottom: 2px solid transparent; }
+#register-modal:target .modal-tab-login   { color: #9ca3af; border-bottom-color: transparent; }
+#register-modal:target .modal-tab-register { color: #800000; border-bottom-color: #800000; }
+
+/* ── Backdrop blur for modal ── */
+.modal-backdrop-blur { backdrop-filter: blur(6px); background: rgba(42,10,10,0.7); }
+/* ── Keranjang Sidebar ── */
+#cart-sidebar {
+  position: fixed; top: 0; right: 0; height: 100vh; width: 100%; max-width: 420px;
+  background: #fff; z-index: 60; display: flex; flex-direction: column;
+  box-shadow: -8px 0 40px rgba(128,0,0,0.15);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#cart-sidebar.open { transform: translateX(0); }
+
+#cart-backdrop {
+  position: fixed; inset: 0; z-index: 59;
+  background: rgba(42,10,10,0.55);
+  backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+#cart-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.cart-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid rgba(212,160,23,0.15);
+  animation: fadeSlideIn 0.25s ease;
+}
+@keyframes fadeSlideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.cart-qty-btn {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid rgba(128,0,0,0.25); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px; line-height: 1;
+  color: #800000; transition: background 0.2s, color 0.2s;
+}
+.cart-qty-btn:hover { background: #800000; color: #fff; }
+
+/* Badge keranjang di navbar */
+#cart-badge {
+  position: absolute; top: -5px; right: -5px;
+  background: #d4a017; color: #420000;
+  font-size: 10px; font-weight: 700; border-radius: 9999px;
+  min-width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;
+  padding: 0 4px; line-height: 1;
+  transform: scale(0);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#cart-badge.show { transform: scale(1); }
+
+/* Toast notifikasi */
+.lp-toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: #800000; color: #fde87a;
+  padding: 10px 20px; border-radius: 9999px;
+  font-size: 13px; font-weight: 500;
+  box-shadow: 0 4px 20px rgba(128,0,0,0.3);
+  z-index: 70; opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none; white-space: nowrap;
+}
+.lp-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Tombol "Tambah ke Keranjang" di product card */
+.btn-add-cart {
+  font-size: 0.7rem; padding: 6px 12px; border-radius: 9999px;
+  background: #800000; color: #fff; border: none; cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  font-family: 'Jost', sans-serif; font-weight: 500; white-space: nowrap;
+}
+.btn-add-cart:hover { background: #d4a017; color: #420000; transform: scale(1.05); }
+.btn-add-cart:active { transform: scale(0.97); }
+
+/* Empty cart state */
+.cart-empty {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  color: #9ca3af; text-align: center; padding: 24px;
+}
