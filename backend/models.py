@@ -24,6 +24,7 @@ class User(Base):
     saran: Mapped[str] = mapped_column(String(100), nullable=True)
 
     keranjang = relationship("Keranjang", back_populates="user")
+    pesanan = relationship("Pesanan", back_populates="user")
 
     def __repr__(self) -> str:
         return f"id: {self.id}, Fullname: {self.nama_lengkap}, Email: {self.email}, Password: {self.password}\nSaran: {self.saran}"
@@ -45,12 +46,36 @@ class Product(Base):
 class Keranjang(Base):
     __tablename__ = "keranjang"
 
-    id        : Mapped[int] = mapped_column(primary_key=True)
-    user_id   : Mapped[int] = mapped_column(ForeignKey("user_table.id"), nullable=False)
-    produk_id : Mapped[int] = mapped_column(ForeignKey("product_table.id"), nullable=False)
-    jumlah    : Mapped[int] = mapped_column(default=1)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"), nullable=False)
+    produk_id: Mapped[int] = mapped_column(ForeignKey("product_table.id"), nullable=False)
+    jumlah: Mapped[int] = mapped_column(default=1)
 
     user  = relationship("User",    back_populates="keranjang")
     produk = relationship("Product", back_populates="keranjang")
 
+
+class Pesanan(Base):
+    __tablename__ = "pesanan"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("user_table.id"), nullable=False)
+    catatan: Mapped[str] = mapped_column(String(100), nullable=True)
+
+    user = relationship("User", back_populates="pesanan")
+    details = relationship("PesananDetail", back_populates="pesanan")
+
+class PesananDetail(Base):
+    __tablename__ = "pesanan_detail"
+
+    id         : Mapped[int] = mapped_column(primary_key=True)
+    pesanan_id : Mapped[int] = mapped_column(ForeignKey("pesanan.id"))
+    produk_id  : Mapped[int] = mapped_column(ForeignKey("product_table.id"))
+    jumlah     : Mapped[int] 
+    harga      : Mapped[int] 
+
+    pesanan = relationship("Pesanan", back_populates="details")
+    produk  = relationship("Product")
+
 Base.metadata.create_all(engine)
+

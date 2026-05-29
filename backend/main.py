@@ -1,7 +1,10 @@
-from fastapi import FastAPI
-from services import register, login
+from fastapi import FastAPI, Depends
+from services import register, login, checkout, tambah_keranjang, get_produk
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from models import User
+from connector import get_current_user
+
 
 app = FastAPI()
 
@@ -36,6 +39,9 @@ class KeranjangItemIn(BaseModel):
 class KeranjangItemUpdate(BaseModel):
     jumlah: int
 
+class PesananIn(BaseModel):
+    catatan: str = ""
+
 
 @app.post('/register')
 def register_api(data: RegisterRequest):
@@ -52,4 +58,22 @@ def login_api(data: LoginRequest):
         email= data.email,
         password= data.password
     )
+
+@app.post('/pesanan')
+def checkout_api(data: PesananIn, current_user: User = Depends(get_current_user)):
+    return checkout(
+        current_user = current_user,
+        catatan = data.catatan
+    )
+    
+@app.post('/keranjang/item')
+def tambah_keranjang_api(data: KeranjangItemIn, current_user: User = Depends(get_current_user)):
+    return tambah_keranjang(
+        current_user= current_user,
+        produk_id= data.produk_id
+    )
+
+@app.get('/produk')
+def get_produk_api():
+    return get_produk()
 

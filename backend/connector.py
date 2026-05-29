@@ -3,10 +3,20 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 
-engine = create_engine("mysql+pymysql://root:secret@localhost:3306/test")
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+engine = create_engine(DATABASE_URL)
+
 
 class Base(DeclarativeBase):
     pass
+
 
 session = Session(engine)
 
@@ -23,10 +33,8 @@ def verify_password(pw, hashed_pw):
 #CREATE JWT TOKEN
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
-import os
+from fastapi import HTTPException
 
-load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
@@ -38,6 +46,31 @@ def create_token(data: dict) -> str:
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
+def decode_token(token: str) -> dict:
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    
+    except JWTError:
+        raise HTTPException(
+            status_code=401,
+            detail="token tidak valid!"
+        )
+    
+from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends
+from models import User
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    payload = decode_token(token)
+    user_id = int(payload.get("sub"))
+    user = session.get(User, user_id)
+    
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="user tidak ditemukan"
+            )
+    return user

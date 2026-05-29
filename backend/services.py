@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from connector import session
 from sqlalchemy import select
-from models import User, Product
+from models import User, Keranjang, Pesanan, Product, PesananDetail
 from connector import hash_password, verify_password, create_token
 
 
@@ -70,7 +70,59 @@ def login(email, password):
         "token_type": "bearer"
     }
 
-def checkout():
-    produk = session.execute(select(Product).filter_by(id=id)).first()
+def checkout(current_user: User, catatan: str):
+    user_keranjang = session.execute(select(Keranjang).filter_by(user_id = current_user.id)).scalars().all()
 
+    if not user_keranjang:
+        raise HTTPException(
+            status_code=409,
+            detail="Keranjang Kosong!"
+        )
     
+    pesanan = Pesanan(
+        user_id = current_user.id,
+        catatan = catatan
+    )
+
+    for item in user_keranjang:
+        session.delete(item)
+
+    session.add(pesanan)
+    session.flush()
+    session.commit()
+
+    return {
+        "message": "Pesan Berhasil!",
+        "detail": f"Id: {pesanan.id}"
+    }
+
+def tambah_keranjang(current_user: User, produk_id: int):
+
+
+    keranjang = Keranjang(
+        user_id= current_user.id,
+        produk_id= produk_id,
+        jumlah= 1
+    )
+
+    session.add(keranjang)
+    session.flush()
+    session.commit()
+
+    return {
+        "message": produk_id + "ditambahkan ke keranjang"
+    }
+
+def get_produk():
+    products = session.execute(select(Product)).scalars().all()
+    return {
+        "produk": [
+            {
+                "id": p.id,
+                "nama": p.nama,
+                "harga": p.harga,
+            }
+            for p in products
+        ]
+    }
+
