@@ -21,7 +21,6 @@ class User(Base):
     nama_lengkap: Mapped[str] = mapped_column(String(40), nullable=False)
     email: Mapped[str] = mapped_column(String(40), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(70), nullable=False)
-    saran: Mapped[str] = mapped_column(String(100), nullable=True)
 
     keranjang = relationship("Keranjang", back_populates="user")
     pesanan = relationship("Pesanan", back_populates="user")
@@ -76,6 +75,16 @@ class PesananDetail(Base):
 
     pesanan = relationship("Pesanan", back_populates="details")
     produk  = relationship("Product")
+
+class Saran(Base):
+    __tablename__ = "saran"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    nama_lengkap: Mapped[str] = mapped_column(String(40), nullable=False)
+    email: Mapped[str] = mapped_column(String(40), unique=True, nullable=False)
+    subjek: Mapped[str] = mapped_column(String(40), nullable=False)
+    rating: Mapped[str] = mapped_column(String(5), nullable=False)
+    pesan: Mapped[str] = mapped_column(String(200), nullable=False)
 
 Base.metadata.create_all(engine)
 

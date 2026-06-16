@@ -1,16 +1,3 @@
-/**
- * api.js — La Pâtisserie · FastAPI Client
- * ─────────────────────────────────────────────────────────────────────────────
- * Disesuaikan dengan struktur backend FastAPI milik La Pâtisserie.
- *
- * Cara pakai di home.html (sudah terpasang via <script type="module">):
- *   import { api } from './api.js';
- *
- * Ubah BASE_URL di bawah sesuai alamat server FastAPI.
- * Development : 'http://localhost:8000'
- * Production  : 'https://api.lapatisserie.id'   ← contoh
- */
-
 // ═══════════════════════════════════════════════════════════════════════
 //  KONFIGURASI — UBAH SESUAI KEBUTUHAN
 // ═══════════════════════════════════════════════════════════════════════

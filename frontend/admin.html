@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin — La Pâtisserie</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maroon: {
+              50: '#fdf2f4', 100: '#fce7ea', 200: '#f9d1d8', 300: '#f4aab8',
+              400: '#ec7590', 500: '#e04870', 600: '#c42b56', 700: '#a32047',
+              800: '#800000', 900: '#6b0000', 950: '#420000',
+            },
+            gold: {
+              50: '#fffdf0', 100: '#fefacc', 200: '#fef38a', 300: '#fde84a',
+              400: '#fad420', 500: '#d4a017', 600: '#b8860b', 700: '#926a09',
+              800: '#74520e', 900: '#614412', 950: '#3a2707',
+            },
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'serif'],
+            body:    ['"Jost"', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="font-body antialiased bg-[#fdf8f0] min-h-screen">
+
+  <!-- NAVBAR -->
+  <nav class="bg-maroon-950 text-white px-6 py-4 flex items-center justify-between shadow-lg">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center">
+        <span class="text-maroon-900 font-display font-bold text-sm">LP</span>
+      </div>
+      <span class="font-display text-gold-400 text-lg font-semibold">La Pâtisserie</span>
+      <span class="text-white/30 text-sm ml-2">/ Admin</span>
+    </div>
+    <a href="home.html" class="text-white/60 hover:text-gold-400 text-sm transition-colors">← Kembali ke Toko</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="max-w-5xl mx-auto px-4 py-10">
+
+    <!-- Header -->
+    <div class="mb-8">
+      <p class="text-gold-600 text-xs tracking-[0.2em] uppercase font-medium mb-1">Dashboard</p>
+      <h1 class="font-display text-4xl font-bold text-maroon-800">Ringkasan Toko</h1>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+
+      <!-- Total Pesanan -->
+      <div class="bg-white rounded-2xl border border-gold-100 shadow-sm p-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs text-gray-400 uppercase tracking-wide">Total Pesanan</span>
+          <div class="w-8 h-8 rounded-full bg-maroon-50 flex items-center justify-center">
+            <svg class="w-4 h-4 text-maroon-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+          </div>
+        </div>
+        <p id="stat-pesanan" class="font-display text-4xl font-bold text-maroon-800">—</p>
+        <p class="text-xs text-gray-400 mt-1">pesanan masuk</p>
+      </div>
+
+      <!-- Total Pemasukan -->
+      <div class="bg-white rounded-2xl border border-gold-100 shadow-sm p-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs text-gray-400 uppercase tracking-wide">Total Pemasukan</span>
+          <div class="w-8 h-8 rounded-full bg-gold-50 flex items-center justify-center">
+            <svg class="w-4 h-4 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </div>
+        <p id="stat-pemasukan" class="font-display text-4xl font-bold text-maroon-800">—</p>
+        <p class="text-xs text-gray-400 mt-1">total pendapatan</p>
+      </div>
+
+      <!-- Total Pengguna -->
+      <div class="bg-white rounded-2xl border border-gold-100 shadow-sm p-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs text-gray-400 uppercase tracking-wide">Total Pengguna</span>
+          <div class="w-8 h-8 rounded-full bg-maroon-50 flex items-center justify-center">
+            <svg class="w-4 h-4 text-maroon-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+        </div>
+        <p id="stat-user" class="font-display text-4xl font-bold text-maroon-800">—</p>
+        <p class="text-xs text-gray-400 mt-1">pengguna terdaftar</p>
+      </div>
+
+    </div>
+
+    <!-- TABEL PESANAN TERBARU -->
+    <div class="bg-white rounded-2xl border border-gold-100 shadow-sm overflow-hidden mb-8">
+      <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <h2 class="font-semibold text-maroon-800">Pesanan Terbaru</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-maroon-50 text-maroon-700 text-xs uppercase tracking-wide">
+            <tr>
+              <th class="px-6 py-3 text-left">#</th>
+              <th class="px-6 py-3 text-left">User ID</th>
+              <th class="px-6 py-3 text-left">Catatan</th>
+              <th class="px-6 py-3 text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody id="tabel-pesanan" class="divide-y divide-gray-50">
+            <tr><td colspan="4" class="px-6 py-8 text-center text-gray-400">Memuat data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TABEL SARAN TERBARU -->
+    <div class="bg-white rounded-2xl border border-gold-100 shadow-sm overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100">
+        <h2 class="font-semibold text-maroon-800">Saran Terbaru</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-maroon-50 text-maroon-700 text-xs uppercase tracking-wide">
+            <tr>
+              <th class="px-6 py-3 text-left">Nama</th>
+              <th class="px-6 py-3 text-left">Subjek</th>
+              <th class="px-6 py-3 text-left">Rating</th>
+              <th class="px-6 py-3 text-left">Pesan</th>
+            </tr>
+          </thead>
+          <tbody id="tabel-saran" class="divide-y divide-gray-50">
+            <tr><td colspan="4" class="px-6 py-8 text-center text-gray-400">Memuat data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script type="module">
+    import { api } from './request.js';
+
+    const BASE_URL = 'http://localhost:8000';
+
+    async function fetchAdmin(endpoint) {
+      const res = await fetch(`${BASE_URL}${endpoint}`);
+      return res.json();
+    }
+
+    function formatRupiah(n) {
+      return 'Rp ' + Number(n).toLocaleString('id-ID');
+    }
+
+    async function loadDashboard() {
+      try {
+        // Load pesanan
+        const dataPesanan = await fetchAdmin('/admin/pesanan');
+        const pesanan = dataPesanan.pesanan ?? [];
+
+        // Stat pesanan
+        document.getElementById('stat-pesanan').textContent = pesanan.length;
+
+        // Stat pemasukan
+        const totalPemasukan = pesanan.reduce((sum, p) => sum + (p.total ?? 0), 0);
+        document.getElementById('stat-pemasukan').textContent = formatRupiah(totalPemasukan);
+
+        // Tabel pesanan
+        const tbody = document.getElementById('tabel-pesanan');
+        if (pesanan.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-gray-400">Belum ada pesanan</td></tr>';
+        } else {
+          tbody.innerHTML = pesanan.slice(0, 10).map(p => `
+            <tr class="hover:bg-maroon-50/30 transition-colors">
+              <td class="px-6 py-3 text-gray-500">#${p.id}</td>
+              <td class="px-6 py-3 text-maroon-800 font-medium">${p.user_id}</td>
+              <td class="px-6 py-3 text-gray-500">${p.catatan || '-'}</td>
+              <td class="px-6 py-3 text-right font-semibold text-maroon-800">${formatRupiah(p.total ?? 0)}</td>
+            </tr>
+          `).join('');
+        }
+      } catch (err) {
+        document.getElementById('tabel-pesanan').innerHTML =
+          '<tr><td colspan="4" class="px-6 py-8 text-center text-red-400">Gagal memuat pesanan</td></tr>';
+      }
+
+      try {
+        // Load saran
+        const dataSaran = await fetchAdmin('/admin/saran');
+        const saranList = dataSaran.saran ?? [];
+
+        // Stat user (dari saran)
+        const dataUser = await fetchAdmin('/admin/users');
+        document.getElementById('stat-user').textContent = dataUser.total ?? '—';
+
+        // Tabel saran
+        const tbodySaran = document.getElementById('tabel-saran');
+        if (saranList.length === 0) {
+          tbodySaran.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-gray-400">Belum ada saran</td></tr>';
+        } else {
+          tbodySaran.innerHTML = saranList.slice(0, 10).map(s => `
+            <tr class="hover:bg-maroon-50/30 transition-colors">
+              <td class="px-6 py-3 text-maroon-800 font-medium">${s.nama}</td>
+              <td class="px-6 py-3 text-gray-500">${s.subjek || '-'}</td>
+              <td class="px-6 py-3 text-gold-600">${'★'.repeat(parseInt(s.rating) || 0)}</td>
+              <td class="px-6 py-3 text-gray-500 max-w-xs truncate">${s.pesan}</td>
+            </tr>
+          `).join('');
+        }
+      } catch (err) {
+        document.getElementById('tabel-saran').innerHTML =
+          '<tr><td colspan="4" class="px-6 py-8 text-center text-red-400">Gagal memuat saran</td></tr>';
+      }
+    }
+
+    loadDashboard();
+  </script>
+
+</body>
+</html>
