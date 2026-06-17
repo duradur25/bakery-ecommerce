@@ -1,3 +1,5 @@
+> This project focuses on backend development. The frontend was generated with AI assistance.
+
 # bakery-ecommerce
 
 An artisan bakery e-commerce website called **La Pâtisserie** — built as a final project for a Web Programming course.
