@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════════
 //  KONFIGURASI — UBAH SESUAI KEBUTUHAN
 // ═══════════════════════════════════════════════════════════════════════
-const BASE_URL  = 'https://lapatisserie-onrender-com.onrender.com/'; // ← URL FastAPI
+const BASE_URL  = 'https://lapatisserie-onrender-com.onrender.com'; // ← URL FastAPI
 const TOKEN_KEY = 'lp_access_token';       // kunci localStorage untuk JWT
 
 
