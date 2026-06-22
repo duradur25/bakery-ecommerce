@@ -4,5 +4,6 @@ sqlalchemy
 pymysql
 python-env
 passlib
+bcrypt
 pydantic
 python-jose
