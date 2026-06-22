@@ -51,6 +51,10 @@ class SaranIn(BaseModel):
     pesan: str
 
 
+@app.get('/')
+def root():
+    return {"message": "Bakery Ecommerce API is running"}
+
 @app.post('/register')
 def register_api(data: RegisterRequest):
     return register(
