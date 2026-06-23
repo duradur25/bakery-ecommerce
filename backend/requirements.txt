@@ -4,6 +4,6 @@ sqlalchemy
 pymysql
 python-env
 passlib
-bcrypt
+bcrypt==4.0.1
 pydantic
 python-jose
